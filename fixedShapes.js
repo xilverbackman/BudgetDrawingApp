@@ -1,5 +1,11 @@
+/**
+ * Click and drag after selecting shapes to adjust shape and orientation
+ */
 class FixedShapes {
-  constructor() {
+  constructor(p, helpers, undoManager) {
+    this.p = p;
+    this.helpers = helpers;
+    this.undoManager = undoManager;
     this.icon = "";
     this.name = "fixedShape";
     this.colour = "black";
@@ -13,25 +19,25 @@ class FixedShapes {
     this.currentShape = shapeName;
   }
   draw() {
-    if (!mouseOnCanvas(canvas)) {
+    if (!this.helpers.mouseOnCanvas()) {
       return;
     }
-    let colour;
-    if (mouseIsPressed) {
+    // let colour;
+    if (this.p.mouseIsPressed) {
       if (this.startMouseX == -1) {
-        this.startMouseX = mouseX;
-        this.startMouseY = mouseY;
-        this.pos = createVector(mouseX, mouseY);
+        this.startMouseX = this.p.mouseX;
+        this.startMouseY = this.p.mouseY;
+        this.pos = this.p.createVector(this.p.mouseX, this.p.mouseY);
         this.drawing = true;
-        loadPixels();
+        this.p.loadPixels();
       } else {
-        updatePixels();
-        this.outerRad = dist(mouseX, mouseY, this.pos.x, this.pos.y);
+        this.p.updatePixels();
+        this.outerRad = this.p.dist(this.p.mouseX, this.p.mouseY, this.pos.x, this.pos.y);
         this.innerRad = this.outerRad / 2;
-        let xDragDist = mouseX - this.pos.x;
-        let yDragDist = mouseY - this.pos.y;
-        let angle = atan2(yDragDist, xDragDist);
-        let distFromClick = dist(this.pos.x, this.pos.y, mouseX, mouseY);
+        let xDragDist = this.p.mouseX - this.pos.x;
+        let yDragDist = this.p.mouseY - this.pos.y;
+        let angle = this.p.atan2(yDragDist, xDragDist);
+        let distFromClick = this.p.dist(this.pos.x, this.pos.y, this.p.mouseX, this.p.mouseY);
         if (this.currentShape === "Star") {
           this.drawStar(
             this.pos.x,
@@ -56,70 +62,69 @@ class FixedShapes {
   }
 
   drawStar(x, y, innerRad, outerRad, rotation = 0) {
-    let angle = TWO_PI / 5;
+    let angle = this.p.TWO_PI / 5;
     let halfAngle = angle / 2;
-    push();
-    translate(x, y);
-    rotate(rotation);
-
-    beginShape();
-    drawingContext.shadowBlur = 20;
-    drawingContext.shadowColor = "rgba(0, 0, 255)";
-    for (let a = 0; a < TWO_PI; a += angle) {
-      let outerPoint = a - HALF_PI;
-      let innerPoint = a + halfAngle - HALF_PI;
-      let cx = cos(outerPoint) * outerRad;
-      let cy = sin(outerPoint) * outerRad;
-      vertex(cx, cy);
-      cx = cos(innerPoint) * innerRad;
-      cy = sin(innerPoint) * innerRad;
-      vertex(cx, cy);
+    this.p.push();
+    this.p.translate(x, y);
+    this.p.rotate(rotation);
+    this.p.beginShape();
+    this.p.drawingContext.shadowBlur = 20;
+    this.p.drawingContext.shadowColor = "rgba(0, 0, 255)";
+    for (let a = 0; a < this.p.TWO_PI; a += angle) {
+      let outerPoint = a - this.p.HALF_PI;
+      let innerPoint = a + halfAngle - this.p.HALF_PI;
+      let cx = this.p.cos(outerPoint) * outerRad;
+      let cy = this.p.sin(outerPoint) * outerRad;
+      this.p.vertex(cx, cy);
+      cx = this.p.cos(innerPoint) * innerRad;
+      cy = this.p.sin(innerPoint) * innerRad;
+      this.p.vertex(cx, cy);
     }
-    endShape(CLOSE);
-    pop();
-    drawingContext.shadowBlur = 0;
-    drawingContext.shadowColor = "rgba(0, 0, 0, 0)";
+    this.p.endShape(this.p.CLOSE);
+    this.p.pop();
+    this.p.drawingContext.shadowBlur = 0;
+    this.p.drawingContext.shadowColor = "rgba(0, 0, 0, 0)";
   }
 
   drawCircle(x, y, rad) {
-    push();
-    noStroke();
-    ellipse(x, y, rad * 2);
-    pop();
+    this.p.push();
+    this.p.noStroke();
+    this.p.ellipse(x, y, rad * 2);
+    this.p.pop();
   }
 
   drawTriangle(x, y, rad, rotation = 0) {
-    push();
-    translate(x, y);
-    rotate(rotation);
-    noStroke();
-    beginShape();
+    this.p.push();
+    this.p.translate(x, y);
+    this.p.rotate(rotation);
+    this.p.noStroke();
+    this.p.beginShape();
     for (let i = 0; i < 3; i++) {
-      let angle = (TWO_PI * i) / 3 - HALF_PI;
-      let vx = cos(angle) * rad;
-      let vy = sin(angle) * rad;
-      vertex(vx, vy);
+      let angle = (this.p.TWO_PI * i) / 3 - this.p.HALF_PI;
+      let vx = this.p.cos(angle) * rad;
+      let vy = this.p.sin(angle) * rad;
+      this.p.vertex(vx, vy);
     }
-    endShape(CLOSE);
-    pop();
+    this.p.endShape(this.p.CLOSE);
+    this.p.pop();
   }
 
   drawSquare(x, y, rad, rotation = 0) {
-    push();
-    translate(x, y);
-    rotate(rotation);
-    rectMode(CENTER);
-    noStroke();
-    rect(0, 0, rad * 2, rad * 2);
-    pop();
+    this.p.push();
+    this.p.translate(x, y);
+    this.p.rotate(rotation);
+    this.p.rectMode(this.p.CENTER);
+    this.p.noStroke();
+    this.p.rect(0, 0, rad * 2, rad * 2);
+    this.p.pop();
   }
 
   mouseReleased() {
-    if (!mouseOnCanvas(canvas)) return; // Ensure we're on canvas
+    if (!this.helpers.mouseOnCanvas()) return; // Ensure we're on canvas
 
-    if (typeof undoManager !== "undefined") {
+    if (typeof this.undoManager !== "undefined") {
       console.log("🕒 Marking snapshot for next frame");
-      undoManager.markForSnapshot();
+      this.undoManager.markForSnapshot();
     }
   }
 }

@@ -17,6 +17,9 @@
     <script src="spray.js"></script>
     <script src="fixedShapes.js"></script>
     <script src="undo.js"></script>
+    <script src="thicc.js"></script>
+    <script src="tabs.js"></script>
+    <script src="main.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
@@ -31,9 +34,16 @@
       <div class="box" id="sidebar">
         <div id="freehandToolContainer"></div>
       </div>
-      <div id="content"></div>
+      <div id="contentBox">
+        <!-- <div class="content" id="tab1"></div> -->
+      </div>
       <div class="box colourPalette"></div>
-      <div class="box options" id="options"></div>
+      <div class="box options" id="options">
+        <div id="tabsBar">
+          <button onclick="addNewTab()">New Tab</button>
+        </div>
+        <div id="tabsContainer"></div>
+      </div>
     </div>
   </body>
 </html>

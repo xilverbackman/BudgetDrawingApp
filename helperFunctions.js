@@ -1,32 +1,56 @@
-function HelperFunctions() {
+// function HelperFunctions(p) {
 
-	//p5.dom click click events. Notice that there is no this. at the
-	//start we don't need to do that here because the event will
-	//be added to the button and doesn't 'belong' to the object
+// 	//p5.dom click click events. Notice that there is no this. at the
+// 	//start we don't need to do that here because the event will
+// 	//be added to the button and doesn't 'belong' to the object
 
-	//event handler for the clear button event. Clears the screen
-	select("#clearButton").mouseClicked(function() {
-		background(255, 255, 255);
+// 	//event handler for the clear button event. Clears the screen
+// 	p.select("#clearButton").mouseClicked(function() {
+// 		background(255, 255, 255);
 
+// 		//call loadPixels to update the drawing state
+// 		//this is needed for the mirror tool
+// 		loadPixels();
+// 	});
 
-		//call loadPixels to update the drawing state
-		//this is needed for the mirror tool
-		loadPixels();
-	});
+// 	//event handler for the save image button. saves the canvsa to the
+// 	//local file system.
+// 	p.select("#saveImageButton").mouseClicked(function() {
+// 		saveCanvas("myPicture", "jpg");
+// 	});
 
-	//event handler for the save image button. saves the canvsa to the
-	//local file system.
-	select("#saveImageButton").mouseClicked(function() {
-		saveCanvas("myPicture", "jpg");
-	});
+// }
 
-	
+// function mouseOnCanvas(canvas) {
+// 	const bounds = canvas.elt.getBoundingClientRect();
+// 	return mouseX >= 0 && mouseX <= canvas.width &&
+// 	       mouseY >= 0 && mouseY <= canvas.height;
+// }
+
+class HelperFunctions {
+  constructor(p, canvas) {
+    this.p = p;
+    this.canvas = canvas;
+
+    this.mouseOnCanvas = () => {
+      // const bounds = this.canvas.elt.getBoundingClientRect();
+      const mx = this.p.mouseX;
+      const my = this.p.mouseY;
+      const on =
+        mx >= 0 && mx <= this.p.width && my >= 0 && my <= this.p.height;
+    //   console.log(
+    //     `mouseOnCanvas? ${on} | mx: ${mx}, my: ${my}, canvas: ${this.p.width}x${this.p.height}`
+    //   );
+      return on;
+    };
+
+    p.select("#clearButton").mouseClicked(() => {
+      this.p.background(255);
+      this.p.loadPixels();
+    });
+
+    p.select("#saveImageButton").mouseClicked(() => {
+      this.p.saveCanvas("myPicture", "jpg");
+    });
+  }
 }
-
-function mouseOnCanvas(canvas) {
-	const bounds = canvas.elt.getBoundingClientRect();
-	return mouseX >= 0 && mouseX <= canvas.width &&
-	       mouseY >= 0 && mouseY <= canvas.height;
-}
-
-

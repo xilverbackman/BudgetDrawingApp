@@ -9,9 +9,16 @@ body {
   overflow-y: scroll;
 }
 
-#content {
+#contentBox {
+  width: 100%;
+  height: 100%;
   grid-area: content;
   border: 3px solid black;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
 }
 
 .header {
@@ -41,6 +48,13 @@ body {
   flex-flow: wrap;
 }
 
+.colourBox{
+  grid-area: colourP;
+  display: flex;
+  flex-direction: grid;
+  flex-flow: wrap;
+}
+
 .options {
   grid-area: options;
   padding: 15px;
@@ -55,18 +69,16 @@ body {
   color: white;
   text-shadow: 0 0 5px red, 0 0 10px red, 0 0 20px darkred, 0 0 30px darkred,
     0 0 40px black;
-  /* text-shadow: ; */
   box-sizing: border-box;
   width: 50px;
   height: 50px;
-  /* max-height: 40px; */
-  /* max-width: 40px; */
+
   margin: 5px;
 }
 
 .wrapper {
   display: grid;
-  height: 100%;
+  height: 100vh;
   grid-template-columns: 100px 230px minmax(500px, 1fr);
   grid-template-rows: 30px minmax(500px, 1fr) 160px;
   grid-template-areas:
@@ -76,7 +88,11 @@ body {
   background-color: #fff;
   color: #444;
 }
-
+.toolbox{
+  /* background-color: red; */
+  width: auto;
+  height: auto;
+}
 .box {
   background-color: #444;
   color: #fff;
@@ -106,9 +122,6 @@ body {
   color: black;
 }
 
-.link:hover {
-  color: black;
-}
 .dropdown {
   font-size: 1rem;
   position: relative;
@@ -133,9 +146,7 @@ body {
   transform: translateY(0);
   pointer-events: auto;
 }
-.dropdown-menu.active {
-  opacity: 1;
-}
+
 
 .dropdown-item {
   padding: 6px 10px;
@@ -165,3 +176,9 @@ body {
   transform: rotate(270deg);
   width: 100px;
 }
+
+/*TABS*/
+#tabsContainer {
+  display: flex;
+}
+

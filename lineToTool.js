@@ -1,5 +1,9 @@
 class LineToTool {
-  constructor() {
+  constructor(p, helpers, undoManager, thiccnessSlider) {
+    this.thiccnessSlider = thiccnessSlider;
+    this.p = p;
+    this.helpers = helpers;
+    this.undoManager = undoManager;
     this.icon = "assets/lineTo.jpg";
     this.name = "LineTo";
     this.startMouseX = -1;
@@ -8,19 +12,20 @@ class LineToTool {
   }
 
   draw() {
-    if (!mouseOnCanvas(canvas)) {
+    if (!this.helpers.mouseOnCanvas()) {
       return;
     }
 
-    if (mouseIsPressed) {
+    if (this.p.mouseIsPressed) {
+      this.p.strokeWeight(this.thiccnessSlider.strokeWeight)
       if (this.startMouseX == -1) {
-        this.startMouseX = mouseX;
-        this.startMouseY = mouseY;
+        this.startMouseX = this.p.mouseX;
+        this.startMouseY = this.p.mouseY;
         this.drawing = true;
-        loadPixels();
+        this.p.loadPixels();
       } else {
-        updatePixels();
-        line(this.startMouseX, this.startMouseY, mouseX, mouseY);
+        this.p.updatePixels();
+        this.p.line(this.startMouseX, this.startMouseY, this.p.mouseX, this.p.mouseY);
       }
     } else if (this.drawing) {
       this.drawing = false;
@@ -29,11 +34,11 @@ class LineToTool {
     }
   }
   mouseReleased() {
-    if (!mouseOnCanvas(canvas)) return; // Ensure we're on canvas
+    if (!this.helpers.mouseOnCanvas()) return; // Ensure we're on canvas
 
-    if (typeof undoManager !== "undefined") {
+    if (typeof this.undoManager !== "undefined") {
       console.log("🕒 Marking snapshot for next frame");
-      undoManager.markForSnapshot();
+      this.undoManager.markForSnapshot();
     }
   }
 }

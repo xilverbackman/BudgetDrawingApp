@@ -3,7 +3,8 @@
  * @param {number} limit - Maximunm number of snapshots to retain in the undo stack
  */
 class UndoManager {
-  constructor(limit = 50) {
+  constructor(p, limit = 50) {
+    this.p = p;
     this.stack = [];
     this.limit = limit;
   }
@@ -13,8 +14,8 @@ class UndoManager {
   }
 
   saveState() {
-    if (!canvas) return;
-    const snapshot = get(); // Get full canvas snapshot
+    if (!this.p.canvas) return;
+    const snapshot = this.p.get(); // Get full canvas snapshot
     this.stack.push(snapshot);
 
     // Limit stack size
@@ -36,9 +37,9 @@ class UndoManager {
 
     // Restore previous state
     const previous = this.stack[this.stack.length - 1];
-    clear();
-    image(previous, 0, 0);
-    loadPixels(); // Refresh pixel buffer
+    this.p.clear();
+    this.p.image(previous, 0, 0);
+    this.p.loadPixels(); // Refresh pixel buffer
     console.log("Undo executed.");
   }
 }
