@@ -29,7 +29,8 @@ function drawingApp(id) {
       freehandTool,
       undoManager,
       thiccnessSlider,
-      tabButton;
+      tabButton,
+      eraser;
 
     p.setup = function () {
       //create a canvas to fill the content div from index.html
@@ -87,6 +88,9 @@ function drawingApp(id) {
           )
         );
         toolbox.addTool(new FixedShapes(p, helpers, undoManager));
+        toolbox.addTool(
+          new EraserTool(p, helpers, undoManager, thiccnessSlider)
+        );
         toolboxIsAdded = true;
       }
 
@@ -130,7 +134,6 @@ function drawingApp(id) {
     };
 
     p.mouseReleased = function () {
-
       const tool = toolbox.selectedTool;
 
       if (tool && typeof tool.mouseReleased === "function") {
