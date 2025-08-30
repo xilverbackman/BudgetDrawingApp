@@ -1,3 +1,7 @@
+/**
+ * Controls thickness of all tools except shapes
+ * @param {object} p - P5 instance
+ */
 class ThiccnessSlider {
   constructor(p) {
     this.p = p;

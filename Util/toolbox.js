@@ -7,20 +7,28 @@ class Toolbox {
     this.id = id;
     this.createToolBox();
 
+    const clearBorders = () => {
+      const items = this.p.selectAll(
+        `#toolbox${this.id} .sideBarItem, #toolbox${this.id} .link`
+      );
+      for (let i = 0; i < items.length; i++) items[i].style("border", "0");
+    };
+
     var toolbarItemClick = (name) => {
       //remove any existing borders
       // var items = this.p.selectAll(".sideBarItem");
-      let items = this.p.selectAll(`#toolbox${this.id}`);
-      console.log(items);
-      for (var i = 0; i < items.length; i++) {
-        items[i].style("border", "0");
-      }
-
-      // var toolName = this.id().split("sideBarItem")[0];
-      // this.selectTool(toolName);
-      // let toolName = name;
+      // let items = this.p.selectAll(`#toolbox${this.id}`);
+      // console.log(items);
+      // for (var i = 0; i < items.length; i++) {
+      //   items[i].style("border", "0");
+      // }
+      const items = this.p.selectAll(
+        `#toolbox${this.id} .sideBarItem, #toolbox${this.id} .link`
+      );
+      for (let i = 0; i < items.length; i++) items[i].style("border", "0");
+      clearBorders();
       this.selectTool(name);
-      console.log(`Toolname ${name}`)
+      console.log(`Toolname ${name}`);
       console.log(this.id);
 
       //call loadPixels to make sure most recent changes are saved to pixel array
@@ -86,8 +94,14 @@ class Toolbox {
     };
 
     this.selectTool = function (toolName) {
-      //search through the tools for one that's name matches
-      //toolName
+      // Clear highlight from ALL buttons in this toolbox first.
+      let all = this.p.selectAll(".sideBarItem, .link");
+      for (let i = 0; i < all.length; i++) all[i].style("border", "0");
+      const items = this.p.selectAll(
+        `#toolbox${this.id} .sideBarItem, #toolbox${this.id} .link`
+      );
+      for (let i = 0; i < items.length; i++) items[i].style("border", "0");
+      //search through the tools for one that's name matches toolName
       for (var i = 0; i < this.tools.length; i++) {
         if (this.tools[i].name == toolName) {
           //if the tool has an unselectTool method run it.

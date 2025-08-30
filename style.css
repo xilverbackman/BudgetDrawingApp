@@ -48,7 +48,7 @@ body {
   flex-flow: wrap;
 }
 
-.colourBox{
+.colourBox {
   grid-area: colourP;
   display: flex;
   flex-direction: grid;
@@ -88,11 +88,23 @@ body {
   background-color: #fff;
   color: #444;
 }
-.toolbox{
+.toolbox {
   /* background-color: red; */
   width: auto;
   height: auto;
 }
+
+/* default: nothing highlighted */
+.sideBarItem,
+.link {
+  border: 0;
+}
+
+/* selected tool highlight */
+.tool-selected {
+  border: 2px solid blue !important;
+}
+
 .box {
   background-color: #444;
   color: #fff;
@@ -147,7 +159,6 @@ body {
   pointer-events: auto;
 }
 
-
 .dropdown-item {
   padding: 6px 10px;
   color: black;
@@ -182,3 +193,9 @@ body {
   display: flex;
 }
 
+button:hover {
+  transform: scale(1.1);
+  background: #bebcbc;
+  transition: background 350ms ease;
+  transition: transform 90ms ease-in-out;
+}

@@ -67,6 +67,7 @@ class FixedShapes {
     this.p.push();
     this.p.translate(x, y);
     this.p.rotate(rotation);
+    this.p.noStroke();
     this.p.beginShape();
     this.p.drawingContext.shadowBlur = 20;
     this.p.drawingContext.shadowColor = "rgba(0, 0, 255)";

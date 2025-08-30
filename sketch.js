@@ -1,7 +1,6 @@
 //global variables that will store the toolbox colour palette
 //amnd the helper functions
 /**
- *
  * @param {string} id - ID for canvas div
  * @returns {object} A canvas instance
  */

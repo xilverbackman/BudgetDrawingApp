@@ -7,18 +7,18 @@
     <script src="sketch.js"></script>
 
     <!-- add extra scripts below -->
-    <script src="toolbox.js"></script>
-    <script src="colourPalette.js"></script>
-    <script src="helperFunctions.js"></script>
+    <script src=".\Util\toolbox.js"></script>
+    <script src=".\Tools\colourPalette.js"></script>
+    <script src=".\Util\helperFunctions.js"></script>
 
-    <script src="freehandTool.js"></script>
-    <script src="lineToTool.js"></script>
-    <script src="mirrorDrawTool.js"></script>
-    <script src="spray.js"></script>
-    <script src="fixedShapes.js"></script>
-    <script src="undo.js"></script>
-    <script src="thicc.js"></script>
-    <script src="tabs.js"></script>
+    <script src=".\Tools\freehandTool.js"></script>
+    <script src=".\Tools\lineToTool.js"></script>
+    <script src=".\Tools\mirrorDrawTool.js"></script>
+    <script src=".\Tools\spray.js"></script>
+    <script src=".\Tools\fixedShapes.js"></script>
+    <script src=".\Util\undo.js"></script>
+    <script src=".\Util\thicc.js"></script>
+    <script src=".\Util\tabs.js"></script>
     <script src="main.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css" />
@@ -30,6 +30,13 @@
         <button id="clearButton">Clear</button>
         <button id="saveImageButton">Save Image</button>
         <button id="undoButton">Undo</button>
+        <button id="importImageButton">Import Image</button>
+        <input
+          id="importFile"
+          type="file"
+          accept="image/*"
+          style="display: none"
+        />
       </div>
       <div class="box" id="sidebar">
         <div id="freehandToolContainer"></div>

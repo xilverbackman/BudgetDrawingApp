@@ -95,7 +95,6 @@ class mirrorDrawTool {
       // //return to the original stroke
       // pop();
       if (toolbox.selectedTool.name === "mirrorDraw") {
-        console.log("MIRROR TOOL SELECTED")
         overlay.clear(); // Clear previous overlay
         overlay.push();
         overlay.strokeWeight(3);
@@ -111,7 +110,7 @@ class mirrorDrawTool {
       }
     };
 
-    /*calculate an opposite coordinate the other side of the
+    /**calculate an opposite coordinate the other side of the
      *symmetry line.
      *@param n number: location for either x or y coordinate
      *@param a [x,y]: the axis of the coordinate (y or y)
